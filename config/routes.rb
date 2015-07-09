@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
+  resources :dashboards
+  root 'dashboards#hello'
+  #devise_for :users
+  #resources :users
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
