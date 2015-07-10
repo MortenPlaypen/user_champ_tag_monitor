@@ -41,8 +41,8 @@ gem 'spring',        group: :development
 gem 'bundler'
 
 group :development, :test do
-  gem 'dotenv-rails'
-  gem 'pry'
+gem 'dotenv-rails'
+gem 'pry'
 end
 
 gem 'activeadmin', github: 'gregbell/active_admin'
@@ -55,6 +55,7 @@ gem 'bootstrap-sass', '3.3.5'
 gem 'bootstrap-sass-extras'
 gem 'validates_formatting_of'
 gem 'tzinfo-data'
+gem 'httparty'
 
 group :development do
   gem 'better_errors'
