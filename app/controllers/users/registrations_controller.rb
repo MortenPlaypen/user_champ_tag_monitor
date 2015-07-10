@@ -12,4 +12,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def edit
     super
   end
+
+  def sign_up_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :helpscout_token)
+  end
 end

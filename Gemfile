@@ -42,6 +42,7 @@ gem 'bundler'
 
 group :development, :test do
   gem 'dotenv-rails'
+  gem 'pry'
 end
 
 gem 'activeadmin', github: 'gregbell/active_admin'

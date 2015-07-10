@@ -8,4 +8,3 @@ class DashboardsController < ApplicationController
 		render "index" #text: "hello, world!"
 	end
 end
-
