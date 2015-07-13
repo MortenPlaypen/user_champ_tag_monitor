@@ -1,0 +1,21 @@
+<h1>Hello world! (Reports)</h1>
+
+<%= form_for @report do |f| %>
+  <%= f.label(:tag, "Tag:") %>
+  <%= f.text_field(:tag) %>
+  <%= f.label(:recipient_email, "Recipient email:") %>
+  <%= f.text_field(:recipient_email) %>
+  <%= f.submit("Get") %>
+<% end %>
+
+<% if user_signed_in? %>
+  <li>
+  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
+  </li>
+<% else %>
+  <li>
+  <%= link_to('Login', new_user_session_path)  %>  
+  </li>
+<% end %>
+
+<p>Find me in app/views/reports/index.html.erb</p>
