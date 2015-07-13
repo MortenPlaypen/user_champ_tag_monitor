@@ -5,6 +5,8 @@
   <%= f.text_field(:tag) %>
   <%= f.label(:recipient_email, "Recipient email:") %>
   <%= f.text_field(:recipient_email) %>
+  <%= f.label(:mailbox_hsid, "Mailbox:") %>
+  <%= f.select(:mailbox_hsid, current_user.get_mailboxes) %>
   <%= f.submit("Get") %>
 <% end %>
 
