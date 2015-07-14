@@ -10,7 +10,19 @@
   <%= f.submit("Get") %>
 <% end %>
 
+<tr>
+    <td>Tag</td>
+    <td>Recipient email</td>
+    <br><br>
+</tr>
 
+<% @reports.each do |report| %>
+    <tr>
+      <td><%= report.tag %></td>
+      <td><%= report.recipient_email %></td>
+  <br><br>
+    </tr>
+ <% end %>
 
 <% if user_signed_in? %>
   <li>
