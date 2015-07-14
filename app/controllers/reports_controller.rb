@@ -15,6 +15,12 @@ class ReportsController < ApplicationController
   	return_reports=["Test Report"]
   end
 
+  # GET /show_message
+  def show_message
+  	puts "Yo!"
+    render js: "alert('simple output');"
+  end
+
   private
   def permit_params
     params.require(:report).permit(:tag, :recipient_email, :mailbox_hsid)

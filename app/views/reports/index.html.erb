@@ -7,7 +7,7 @@
   <%= f.text_field(:recipient_email) %>
   <%= f.label(:mailbox_hsid, "Mailbox:") %>
   <%= f.select(:mailbox_hsid, current_user.get_mailboxes) %>
-  <%= f.submit("Get") %>
+  <%= f.submit("Save") %>
 <% end %>
 
 <tr>
@@ -20,6 +20,8 @@
     <tr>
       <td><%= report.tag %></td>
       <td><%= report.recipient_email %></td>
+      <%= link_to "Send test email", show_message_path, remote: true %>
+
   <br><br>
     </tr>
  <% end %>
