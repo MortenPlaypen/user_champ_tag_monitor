@@ -20,7 +20,7 @@
     <tr>
       <td><%= report.tag %></td>
       <td><%= report.recipient_email %></td>
-      <%= link_to "Send test email", show_message_path, remote: true %>
+      <%= link_to "Send test email", "#{show_message_path}/#{report.id}", remote: true %>
 
   <br><br>
     </tr>

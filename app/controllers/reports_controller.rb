@@ -16,9 +16,22 @@ class ReportsController < ApplicationController
   end
 
   # GET /show_message
-  def show_message
-  	puts "Yo!"
-    render js: "alert('simple output');"
+  def show_message()
+  	id = params[:id]
+  	SendReport.email(id)
+  	render js: "alert('It has been sent!');"
+  	#test_param=recipient_email
+  	
+  	#binding.pry
+    #if id==nil then
+    #	render js: "alert('It is empty');"
+    #else
+    #	render js: "alert('It is not empty');"
+    #end
+
+    #render js: "alert('simple output');"
+	#render js: "alert('params[:user_id]'');"
+    #params[:user_id]
   end
 
   private
