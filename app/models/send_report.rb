@@ -7,10 +7,9 @@ class SendReport
 	def self.email(report_id)
 		mandrill = Mandrill::API.new ENV['MANDRILL_APIKEY']
     	report=Report.find(report_id)
-    	#binding.pry
     	data=get_conversations(report)
     	message = {}
-	    message["subject"] = "Test"
+	    message["subject"] = "Your weekly report"
         message["html"] = data
 	    message["to"] =  [
             {
@@ -19,7 +18,6 @@ class SendReport
             }
         ]
 	    message["from_email"] = "morten@playpenlabs.com"
-	    #binding.pry
 	    mandrill.messages.send message, true
 	end
 
@@ -36,11 +34,5 @@ class SendReport
 			ret_html += "</br>"
 		end
 		return ret_html
-	end
-
-	def self.test_method(report_id)
-		report=Report.find(report_id)
-		#email(report)
-		render js: "alert('simple output');"
 	end
 end

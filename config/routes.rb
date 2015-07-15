@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   
   #get 'reports/index'
-  get '/show_message/:id' => 'reports#show_message', :as => :id #, as: :show_message
-  get '/show_message' => 'reports#show_message' #, :as => :reports_tag #, as: :show_message
+  get '/send_test/:report_id' => 'reports#send_test', :as => :report_id #, as: :show_message
+  get '/send_test' => 'reports#send_test' #, :as => :reports_tag #, as: :show_message
   
+  get '/show_email/:id' => 'emails#index', :as => :id #, as: :show_message
+  get '/show_email' => 'emails#index' #, :as => :reports_tag #, as: :show_message
 
   devise_for :users, controllers: {registrations: "users/registrations", sessions: "users/sessions", passwords: "users/passwords"}, skip: [:sessions, :registrations]
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -16,6 +18,7 @@ Rails.application.routes.draw do
 
   resources :dashboards
   resources :reports
+  resources :emails
   root 'reports#index'
   #devise_for :users
   #resources :users

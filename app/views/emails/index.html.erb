@@ -1,0 +1,7 @@
+<h1>Hello world! (Emails)</h1>
+
+<%= @email_message %>
+<br><br>
+<%= link_to "Send test email", "#{send_test_path}/#{@report_id}", remote: true %>
+<br><br>
+<%= link_to('Back to overview', root_path)  %>
