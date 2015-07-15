@@ -7,7 +7,7 @@ class SendReport
 	def self.email(report_id)
 		mandrill = Mandrill::API.new ENV['MANDRILL_APIKEY']
     	report=Report.find(report_id)
-    	binding.pry
+    	#binding.pry
     	data=get_conversations(report)
     	message = {}
 	    message["subject"] = "Test"
