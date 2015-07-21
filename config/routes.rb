@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
   
   #get 'reports/index'
-  get '/send_test/:report_id' => 'reports#send_test', :as => :report_id #, as: :show_message
-  get '/send_test' => 'reports#send_test' #, :as => :reports_tag #, as: :show_message
+  get '/send_test/:report_id' => 'reports#send_test', :as => :report_id
+  get '/send_test' => 'reports#send_test'
   
-  get '/show_email/:id' => 'emails#index', :as => :id #, as: :show_message
-  get '/show_email' => 'emails#index' #, :as => :reports_tag #, as: :show_message
+  get '/show_email/:id' => 'emails#index', :as => :id
+  get '/show_email' => 'emails#index'
+
+  get '/delete_report/:delete_id' => 'reports#delete', :as => :delete_id
+  get '/delete_report' => 'reports#delete'
 
   devise_for :users, controllers: {registrations: "users/registrations", sessions: "users/sessions", passwords: "users/passwords"}, skip: [:sessions, :registrations]
   devise_for :admin_users, ActiveAdmin::Devise.config

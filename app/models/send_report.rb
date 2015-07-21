@@ -33,6 +33,7 @@ class SendReport
 			ret_html += "#{thread_response['item']['threads'].last['body']}"
 			ret_html += "</br>"
 		end
+		ret_html += "That's all!"
 		return ret_html
 	end
 end

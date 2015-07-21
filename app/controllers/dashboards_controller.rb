@@ -6,8 +6,8 @@ class DashboardsController < ApplicationController
   	# For APIs, you may want to use :null_session instead.
   	protect_from_forgery with: :exception
 
-	def hello
-		render "index" #text: "hello, world!"
-	end
+	#def hello
+	#	render "index" #text: "hello, world!"
+	#end
 
 end

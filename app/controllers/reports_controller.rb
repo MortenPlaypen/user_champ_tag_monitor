@@ -19,7 +19,14 @@ class ReportsController < ApplicationController
   def send_test()
   	id = params[:report_id]
   	SendReport.email(id)
-  	render js: "alert('It has been sent!');"
+  end
+
+  def delete()
+    id = params[:delete_id]
+    puts "hej"
+    report=Report.find(id)
+    report.destroy
+    redirect_to :root
   end
 
   private

@@ -1,39 +1,88 @@
-<h1>Hello world! (Reports)</h1>
+<div id="main-container" class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="page-header">
+        <h1><%=t ".title", default: "Create report" %></h1>
+      </div>
+    </div>
+  </div>
 
-<%= form_for @report do |f| %>
-  <%= f.label(:tag, "Tag:") %>
-  <%= f.text_field(:tag) %>
-  <%= f.label(:recipient_email, "Recipient email:") %>
-  <%= f.text_field(:recipient_email) %>
-  <%= f.label(:mailbox_hsid, "Mailbox:") %>
-  <%= f.select(:mailbox_hsid, current_user.get_mailboxes) %>
-  <%= f.submit("Save") %>
-<% end %>
+  <div class="row">
+    <%= form_for @report, html: {class: "form-horizontal form-user"} do |f| %>
+    
 
-<tr>
-    <td>Tag</td>
-    <td>Recipient email</td>
-    <br><br>
-</tr>
+      <div class="form-group">
+          <%= f.label :tag, "Which tag do you want a report for?", class: "control-label col-md-4" %>
+          <div class="col-md-4">
+            <%= f.select :tag, current_user.get_tags %>
+          </div>
+      </div>
+      <div class="form-group">
+          <%= f.label :mailbox_hsid, "From which mailbox?", class:  "control-label col-md-4" %>
+          <div class="col-md-4">
+            <%= f.select :mailbox_hsid, current_user.get_mailboxes %>
+          </div>
+      </div>
+      <div class="form-group">
+          <%= f.label :recipient_email, "Who (other than you) should receive the report?", class: "control-label col-md-4" %>
+          <div class="col-md-4">
+            <%= f.text_field(:recipient_email) %>
+          </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+          <%= f.submit "Save", class: "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
-<% @reports.each do |report| %>
-    <tr>
-      <td><%= report.tag %></td>
-      <td><%= report.recipient_email %></td>
-      <td><%= link_to "See preview of report", "#{show_email_path}/#{report.id}" %></td>
+<div id="main-container" class="container">
+  <% unless @reports.blank? %>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="page-header">
+          <h1><%=t ".title", default: "Reports" %></h1>
+        </div>
+      </div>
+    </div>
 
-  <br><br>
-    </tr>
- <% end %>
+    <div id="main-container" class="container">
+      <div class="row">
+            <div class="col-md-2">
+              <b>Tag</b>
+            </div>
+            <div class="col-md-2">
+              <b>Mailbox</b>
+            </div>
+            <div class="col-md-2">
+              <b>Recipient email</b>
+            </div>
+        </div>
+        <% @reports.each do |report| %>
+        <div class="row">
+            <div class="col-md-2">
+              <%= report.tag %>
+            </div>
+            <div class="col-md-2">
+              <%= current_user.get_mailbox_name(report.mailbox_hsid) %>
+            </div>
+            <div class="col-md-2">
+              <%= report.recipient_email %>
+            </div>
+            <div class="col-md-2">
+              <%= link_to "See preview of report", "#{show_email_path}/#{report.id}", class: 'btn btn-default'%>
+            </div>
+            <div class="col-md-1">
+              <%= link_to "Delete report", "#{delete_report_path}/#{report.id}", class: 'btn btn-default' %>
+            </div>
+      </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
 
-<% if user_signed_in? %>
-  <li>
-  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
-  </li>
-<% else %>
-  <li>
-  <%= link_to('Login', new_user_session_path)  %>  
-  </li>
-<% end %>
 
-<p>Find me in app/views/reports/index.html.erb</p>
