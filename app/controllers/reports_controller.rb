@@ -20,7 +20,7 @@ class ReportsController < ApplicationController
   	id = params[:report_id]
   	SendReport.email(id)
     respond_to do |format|
-      format.js {}
+      format.js {render :nothing => true, :status => 200}
       format.html
     end
     #render :nothing => true, :status => 200
