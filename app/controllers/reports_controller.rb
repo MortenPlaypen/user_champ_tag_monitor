@@ -17,10 +17,9 @@ class ReportsController < ApplicationController
 
   # GET /send_test
   def send_test
-    puts params
   	id = params[:report_id]
-    puts id
   	SendReport.email(id)
+    render status: :ok
   end
 
   def delete
