@@ -11,12 +11,10 @@ class SendReport
     	message = {}
 	    message["subject"] = "Your weekly report"
         message["html"] = data
-	    message["to"] =  [
-            {
-                "email":report.recipient_email,
-                "type":"to"
-            }
-        ]
+	    message["to"] =  [{
+	    	"type"=>"to",
+            "email"=>report.recipient_email
+            }]
 	    message["from_email"] = "morten@playpenlabs.com"
 	    mandrill.messages.send message, true
 	end
