@@ -11,19 +11,21 @@ class ReportsController < ApplicationController
   	redirect_to :root
   end
 
-  def get_reports()
+  def get_reports
   	return_reports=["Test Report"]
   end
 
   # GET /send_test
-  def send_test()
+  def send_test
+    puts params
   	id = params[:report_id]
+    puts id
   	SendReport.email(id)
   end
 
-  def delete()
+  def delete
     id = params[:delete_id]
-    puts "hej"
+    #puts "hej"
     report=Report.find(id)
     report.destroy
     redirect_to :root
