@@ -13,8 +13,8 @@ class SendReport
         message["html"] = data
 	    message["to"] =  [
             {
-                "email": report.recipient_email,
-                "type": "to"
+                "email":report.recipient_email,
+                "type":"to"
             }
         ]
 	    message["from_email"] = "morten@playpenlabs.com"
