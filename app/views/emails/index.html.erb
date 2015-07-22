@@ -3,7 +3,7 @@
       	<div class="col-md-8 col-md-offset-2">
 			<%= @email_message.html_safe %>
 			</br></br>
-			<%= link_to "Send test email", "#{send_test_path}/#{@report_id}", :remote => true %>
+		    <%= link_to "Send test email", "#{send_test_path}/#{@report_id}", remote: true %>
 			</br></br>
 			<%= link_to('Back to overview', root_path)  %>
 		</div>

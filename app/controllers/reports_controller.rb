@@ -19,7 +19,11 @@ class ReportsController < ApplicationController
   def send_test
   	id = params[:report_id]
   	SendReport.email(id)
-    render status: :ok
+    respond_to do |format|
+      format.js {}
+      format.html
+    end
+    #render :nothing => true, :status => 200
   end
 
   def delete
