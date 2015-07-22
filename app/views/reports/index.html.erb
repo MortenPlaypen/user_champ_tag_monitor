@@ -30,6 +30,12 @@
           </div>
       </div>
       <div class="form-group">
+          <%= f.label :send_time, "Who (other than you) should receive the report?", class: "control-label col-md-4" %>
+          <div class="col-md-4">
+            <%= f.select :send_time, Date::DAYNAMES.zip((0..6).to_a) %>
+          </div>
+      </div>
+      <div class="form-group">
         <div class="col-md-4">
         </div>
         <div class="col-md-4">

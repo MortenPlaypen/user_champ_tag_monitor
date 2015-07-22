@@ -36,7 +36,7 @@ class ReportsController < ApplicationController
 
   private
   def permit_params
-    params.require(:report).permit(:tag, :recipient_email, :mailbox_hsid)
+    params.require(:report).permit(:tag, :recipient_email, :mailbox_hsid, :send_time)
   end
 
 end
