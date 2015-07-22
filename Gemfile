@@ -61,3 +61,5 @@ gem 'mandrill-api'
 group :development do
   gem 'better_errors'
 end
+
+gem 'rails_12factor', group: :production
