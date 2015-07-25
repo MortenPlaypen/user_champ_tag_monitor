@@ -22,7 +22,9 @@ class SendReport
 	def self.get_conversations(report)
 		date = DateTime.now - 30
 		auth = {:password => "X", :username => report.user.helpscout_token}
-		response = HTTParty.get(URI.encode("https://api.helpscout.net/v1/mailboxes/#{report.mailbox_hsid}/conversations.json?tag=#{report.tag}&modifiedSince=#{date}"), :basic_auth => auth)
+		api_url = "https://api.helpscout.net/v1/mailboxes/#{report.mailbox_hsid}/conversations.json?tag=#{report.tag}&modifiedSince=#{date}"
+		puts api_url
+		response = HTTParty.get(URI.encode(api_url), :basic_auth => auth)
 		ret_html = ""
 		previous_week = []
 		current_week = []
