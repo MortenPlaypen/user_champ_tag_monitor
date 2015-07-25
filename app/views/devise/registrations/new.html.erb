@@ -33,9 +33,10 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :helpscout_token, "HelpScout token", class: "control-label col-md-4" %>
+        <%= f.label :helpscout_token, "HelpScout API Key", class: "control-label col-md-4" %>
         <div class="col-md-4">
           <%= f.text_field :helpscout_token, class: "text-field form-control", html: {autocomplete: "off"} %>
+          <a href="http://developer.helpscout.net/help-desk-api/#generating-an-api-key" target="_blank">"Where do I find my HelpScout API key?"</a>
         </div>
       </div>
 
