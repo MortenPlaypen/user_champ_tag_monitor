@@ -38,22 +38,26 @@ class SendReport
 		#end
 		#response = response.to_hash
 		#binding.pry
-		ret_html = response["items"].count.to_s + " emails tagged with " + "'" + report.tag.to_s + "'" + " this week (" + previous_week.count.to_s + " last week)" + "</br></br>"
-		conv_count = 1
-		response["items"].each do |item|
-			conversation_id = item["id"]
-			thread_response = HTTParty.get(URI.encode("https://api.helpscout.net/v1/conversations/#{conversation_id}.json"), :basic_auth => auth)
-			ret_html += "Email " + conv_count.to_s
-			ret_html+= "</br>"
-			ret_html+= "-----------------------------------------"
-			ret_html+= "</br>"
-			ret_html += "'" + "#{thread_response['item']['subject']}" + "'"
-			ret_html+= "</br>"
-			ret_html += "#{thread_response['item']['threads'].last['body']}"
-			ret_html+= "</br>"
-			ret_html+= "-----------------------------------------"
-			ret_html += "</br><br>"
-			conv_count = conv_count + 1
+		if response != nil
+			ret_html += "It's not empty!"
+		else
+			ret_html = response["items"].count.to_s + " emails tagged with " + "'" + report.tag.to_s + "'" + " this week (" + previous_week.count.to_s + " last week)" + "</br></br>"
+			conv_count = 1
+			response["items"].each do |item|
+				conversation_id = item["id"]
+				thread_response = HTTParty.get(URI.encode("https://api.helpscout.net/v1/conversations/#{conversation_id}.json"), :basic_auth => auth)
+				ret_html += "Email " + conv_count.to_s
+				ret_html+= "</br>"
+				ret_html+= "-----------------------------------------"
+				ret_html+= "</br>"
+				ret_html += "'" + "#{thread_response['item']['subject']}" + "'"
+				ret_html+= "</br>"
+				ret_html += "#{thread_response['item']['threads'].last['body']}"
+				ret_html+= "</br>"
+				ret_html+= "-----------------------------------------"
+				ret_html += "</br><br>"
+				conv_count = conv_count + 1
+			end
 		end
 		return ret_html
 	end
