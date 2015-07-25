@@ -38,8 +38,9 @@ class SendReport
 		#end
 		#response = response.to_hash
 		#binding.pry
-		if response != nil
-			ret_html += "It's not empty!"
+		if response["items"] == []
+			#binding.pry
+			ret_html += "There were no emails this week!"
 		else
 			ret_html = response["items"].count.to_s + " emails tagged with " + "'" + report.tag.to_s + "'" + " this week (" + previous_week.count.to_s + " last week)" + "</br></br>"
 			conv_count = 1
