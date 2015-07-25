@@ -20,7 +20,7 @@ class SendReport
 	end
 
 	def self.get_conversations(report)
-		date = DateTime.now - 30
+		date = (Time.now.utc - 30.days).strftime("%Y-%m-%dT%H:%M:%SZ")
 		auth = {:password => "X", :username => report.user.helpscout_token}
 		api_url = "https://api.helpscout.net/v1/mailboxes/#{report.mailbox_hsid}/conversations.json?tag=#{report.tag}&modifiedSince=#{date}"
 		puts api_url
