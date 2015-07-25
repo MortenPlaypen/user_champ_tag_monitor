@@ -42,7 +42,7 @@ class SendReport
 			#binding.pry
 			ret_html += "There were no emails this week!"
 		else
-			ret_html = response["items"].count.to_s + " emails tagged with " + "'" + report.tag.to_s + "'" + " this week (" + previous_week.count.to_s + " last week)" + "</br></br>"
+			ret_html += response["items"].count.to_s + " emails tagged with " + "'" + report.tag.to_s + "'" + " this week (" + previous_week.count.to_s + " last week)" + "</br></br>"
 			conv_count = 1
 			response["items"].each do |item|
 				conversation_id = item["id"]
