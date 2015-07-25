@@ -23,12 +23,10 @@ class ReportsController < ApplicationController
       format.js {render :nothing => true, :status => 200}
       format.html
     end
-    #render :nothing => true, :status => 200
   end
 
   def delete
     id = params[:delete_id]
-    #puts "hej"
     report=Report.find(id)
     report.destroy
     redirect_to :root
