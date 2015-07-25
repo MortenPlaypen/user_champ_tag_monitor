@@ -26,16 +26,16 @@ class SendReport
 		ret_html = ""
 		previous_week = []
 		current_week = []
-		response["items"].each do |item|
-			if item["createdAt"] < DateTime.now - 10
-				previous_week.push(item)
+		#response["items"].each do |item|
+		#	if item["createdAt"] < DateTime.now - 10
+		#		previous_week.push(item)
 				#binding.pry
-			else
-				current_week.push(item)
+		#	else
+		#		current_week.push(item)
 				#binding.pry
-			end
+		#	end
 		#previous_week = previous_week[0]
-		end
+		#end
 		#response = response.to_hash
 		#binding.pry
 		ret_html = response["items"].count.to_s + " emails tagged with " + "'" + report.tag.to_s + "'" + " this week (" + previous_week.count.to_s + " last week)" + "</br></br>"
