@@ -20,49 +20,25 @@ class SendReport
 	end
 
 	def self.get_conversations(report)
-		date = (Time.now.utc - 30.days).strftime("%Y-%m-%dT%H:%M:%SZ")
+		date = (Time.now.utc - 14.days).strftime("%Y-%m-%dT%H:%M:%SZ")
 		auth = {:password => "X", :username => report.user.helpscout_token}
 		api_url = "https://api.helpscout.net/v1/mailboxes/#{report.mailbox_hsid}/conversations.json?tag=#{report.tag}&modifiedSince=#{date}"
-		puts api_url
 		response = HTTParty.get(URI.encode(api_url), :basic_auth => auth)
-		ret_html = ""
-		previous_week = []
-		current_week = []
-		#response["items"].each do |item|
-		#	if item["createdAt"] < DateTime.now - 10
-		#		previous_week.push(item)
-				#binding.pry
-		#	else
-		#		current_week.push(item)
-				#binding.pry
-		#	end
-		#previous_week = previous_week[0]
-		#end
-		#response = response.to_hash
-		#binding.pry
-		if response["items"] == []
-			#binding.pry
-			ret_html += "There were no emails this week!"
-		else
-			puts response
-			ret_html += response["items"].count.to_s + " emails tagged with " + "'" + report.tag.to_s + "'" + " this week (" + previous_week.count.to_s + " last week)" + "</br></br>"
-			conv_count = 1
-			response["items"].each do |item|
+		ret_hash = {}
+		emails_arr = []
+		response["items"].each do |item|
+			if item["createdAt"] > DateTime.now - 7
+			
+				email_hash = {}
 				conversation_id = item["id"]
 				thread_response = HTTParty.get(URI.encode("https://api.helpscout.net/v1/conversations/#{conversation_id}.json"), :basic_auth => auth)
-				ret_html += "Email " + conv_count.to_s
-				ret_html+= "</br>"
-				ret_html+= "-----------------------------------------"
-				ret_html+= "</br>"
-				ret_html += "'" + "#{thread_response['item']['subject']}" + "'"
-				ret_html+= "</br>"
-				ret_html += "#{thread_response['item']['threads'].last['body']}"
-				ret_html+= "</br>"
-				ret_html+= "-----------------------------------------"
-				ret_html += "</br><br>"
-				conv_count = conv_count + 1
+				email_hash = { :email_subject => thread_response['item']['subject'], :email_body => thread_response['item']['threads'].last['body'], :email_date => thread_response['item']['createdAt'].to_time.strftime("%m-%d-%Y-%H:%M") }
+				emails_arr.push(email_hash)
 			end
 		end
-		return ret_html
+		this_week = emails_arr.count
+		last_week = response["items"].count - emails_arr.count
+		ret_hash = { :last_week => last_week, :this_week => this_week, :tag =>report.tag, :emails => emails_arr }
+		return ret_hash
 	end
 end

@@ -1,11 +1,34 @@
 <div class="container">
-    <div class="row">
-      	<div class="col-md-8 col-md-offset-2">
-			<%= @email_message.html_safe %>
-			</br></br>
-		    <%= link_to "Send test email", "#{send_test_path}/#{@report_id}", remote: true %>
-			</br></br>
-			<%= link_to('Back to overview', root_path)  %>
-		</div>
+    <div>
+    	<H1>Summary</H1>
+    	There <%= if @email_message[:this_week]>1 then "were" else "was" end %> <%= @email_message[:this_week] %> <%= if @email_message[:this_week]>1 then "emails" else "email" end %> tagged with "<%= @email_message[:tag] %>" this week (<%= @email_message[:last_week] %> last week)
+	</div>
+</div>
+<div class = "container">
+	<H1>Emails</H1>
+	<div class = "row">
+		<div class = "col-md-3"><b>Date sent</b></div>
+		<div class = "col-md-3"><b>Subject</b></div>
+		<div class = "col-md-6"><b>Email</b></div>
+	</div>
+	<div class = "row">
+		<% @email_message[:emails].each do |email| %>
+			<div class = "col-md-3">
+				<%= email[:email_date].html_safe %>
+			</div>
+			<div class = "col-md-3">
+				<div><%= email[:email_subject].html_safe %></div>
+			</div>
+			<div class = "col-md-6">
+				<div><%= email[:email_body].html_safe %></div>
+			</div>
+		<% end %>
+	</div>
+</div>
+<div class = "container">
+	<div>
+		<%= link_to "Send test email", "#{send_test_path}/#{@report_id}", remote: true %>
+		</br></br>
+		<%= link_to('Back to overview', root_path)  %>
 	</div>
 </div>
