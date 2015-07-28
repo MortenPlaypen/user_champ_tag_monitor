@@ -10,7 +10,7 @@ class SendReport
     	data=get_conversations(report)
     	message = {}
 	    message["subject"] = "Your weekly report"
-        message["html"] = data
+        message["html"] = data[:emails].join.html_safe, data[:emails].join.html_safe
 	    message["to"] =  [{
 	    	"type"=>"to",
             "email"=>report.recipient_email
