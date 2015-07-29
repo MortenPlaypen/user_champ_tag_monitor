@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   resources :dashboards
   resources :reports
   resources :emails
-  root 'reports#index'
+  root :to => redirect('/reports')
   #devise_for :users
   #resources :users
 

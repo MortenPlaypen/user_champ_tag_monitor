@@ -29,6 +29,6 @@
 	<div>
 		<%= link_to "Send test email to #{current_user.email}", "#{send_test_path}/#{@report_id}", remote: true %>
 		</br></br>
-		<%= link_to('Back to overview', root_path)  %>
+		<%= link_to('Back to overview', '/reports')  %>
 	</div>
 </div>
