@@ -10,7 +10,7 @@ class SendReport
     	data=get_conversations(report)
     	message = {}
 	    message["subject"] = "Your weekly report"
-        message["html"] = data[:emails].join.html_safe, data[:emails].join.html_safe
+        message["html"] = data
 	    message["to"] =  [{
 	    	"type"=>"to",
             "email"=>report.recipient_email
@@ -38,7 +38,9 @@ class SendReport
 		end
 		this_week = emails_arr.count
 		last_week = response["items"].count - emails_arr.count
-		ret_hash = { :last_week => last_week, :this_week => this_week, :tag =>report.tag, :emails => emails_arr }
+		end_day = (Time.now.utc).strftime("%m/%d")
+		start_day = (Time.now.utc - 7.days).strftime("%m/%d")
+		ret_hash = { :last_week => last_week, :this_week => this_week, :tag =>report.tag, :end_day => end_day, :start_day => start_day, :emails => emails_arr }
 		return ret_hash
 	end
 end
