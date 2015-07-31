@@ -20,7 +20,8 @@ class SendReport
 	    
 	    template_name = "tagmonitor_weekly"
 	    template_content = []
-	    message["global_merge_vars"]  = [{"name"=>"REPORT_SUMMARY", "content"=>"The summary goes here!"},{"name"=>"REPORT_EMAILS", "content"=>"#{get_conversations(report)}"}]
+	    report_summary = "Between #{data[:start_day]} and #{data[:end_day]} there #{if data[:this_week]>1 then "were" else "was" end} #{data[:this_week]} #{if data[:this_week]>1 then "emails" else "email" end} tagged with '#{data[:tag]}' (#{data[:last_week]} the week before)"
+	    message["global_merge_vars"]  = [{"name"=>"REPORT_SUMMARY", "content"=>report_summary},{"name"=>"REPORT_EMAILS", "content"=>"#{get_conversations(report)[:emails]}"}]
 
 	    mandrill.messages.send_template template_name, template_content, message, true
 	end
