@@ -57,6 +57,7 @@ gem 'validates_formatting_of'
 gem 'tzinfo-data'
 gem 'httparty'
 gem 'mandrill-api'
+gem 'roadie', '2.4.3'
 
 group :development do
   gem 'better_errors'

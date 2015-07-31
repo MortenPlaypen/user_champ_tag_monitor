@@ -8,15 +8,21 @@ class SendReport
 		mandrill = Mandrill::API.new ENV['MANDRILL_APIKEY']
     	report=Report.find(report_id)
     	data=get_conversations(report)
+
     	message = {}
 	    message["subject"] = "Your weekly report"
-        message["html"] = data
+        #message["html"] = data
 	    message["to"] =  [{
 	    	"type"=>"to",
             "email"=>report.recipient_email
             }]
 	    message["from_email"] = "morten@playpenlabs.com"
-	    mandrill.messages.send message, true
+	    
+	    template_name = "tagmonitor_weekly"
+	    template_content = []
+	    message["global_merge_vars"]  = [{"name"=>"REPORT_SUMMARY", "content"=>"The summary goes here!"},{"name"=>"REPORT_EMAILS", "content"=>"#{get_conversations(report)}"}]
+
+	    mandrill.messages.send_template template_name, template_content, message, true
 	end
 
 	def self.get_conversations(report)
