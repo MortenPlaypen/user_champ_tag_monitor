@@ -4,17 +4,24 @@ require 'httparty'
 class SendReport
 	include HTTParty
 
-	def self.email(report_id)
+	def self.email(report_id,email)
 		mandrill = Mandrill::API.new ENV['MANDRILL_APIKEY']
     	report=Report.find(report_id)
     	data=get_conversations(report)
 
     	message = {}
-	    message["subject"] = "Your weekly report"
+	    
         #message["html"] = data
+        if email == nil then
+        	recipient_email = report.recipient_email
+        	message["subject"] = "Your weekly report"
+        else
+        	recipient_email = email
+        	message["subject"] = "PREVIEW: Your weekly report"
+        end
 	    message["to"] =  [{
 	    	"type"=>"to",
-            "email"=>report.recipient_email
+            "email"=>recipient_email
             }]
 	    message["from_email"] = "morten@playpenlabs.com"
 	    
