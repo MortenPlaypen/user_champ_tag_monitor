@@ -18,7 +18,8 @@ class ReportsController < ApplicationController
   # GET /send_test
   def send_test
   	id = params[:report_id]
-  	SendReport.email(id,current_user.email)
+    test = true
+  	SendReport.email(id,test)
     respond_to do |format|
       format.js {render :nothing => true, :status => 200}
       format.html

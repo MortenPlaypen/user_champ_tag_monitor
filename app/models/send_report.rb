@@ -4,7 +4,7 @@ require 'httparty'
 class SendReport
 	include HTTParty
 
-	def self.email(report_id,email)
+	def self.email(report_id,test)
 		mandrill = Mandrill::API.new ENV['MANDRILL_APIKEY']
     	report=Report.find(report_id)
     	data=get_conversations(report)
@@ -12,23 +12,31 @@ class SendReport
     	message = {}
 	    
         #message["html"] = data
-        if email == nil then
+        if test == true then
+        	recipient_email = report.user.email
+        	message["subject"] = "PREVIEW: Your weekly report"
+        else
         	recipient_email = report.recipient_email
         	message["subject"] = "Your weekly report"
-        else
-        	recipient_email = email
-        	message["subject"] = "PREVIEW: Your weekly report"
         end
 	    message["to"] =  [{
 	    	"type"=>"to",
             "email"=>recipient_email
             }]
 	    message["from_email"] = "morten@playpenlabs.com"
-	    
+	    body = ""
+	    data[:emails].each do |email|
+	    	body_temp = "<div>Sent: #{email[:email_date].html_safe}</div><div>Subject: #{email[:email_subject].html_safe}</div><div>#{email[:email_body].html_safe}</div>"
+	    	if body == "" then
+	    		body = body_temp
+	    	else
+	    		body = body + "<br><br>" + body_temp
+	    	end	
+		end
 	    template_name = "tagmonitor_weekly"
 	    template_content = []
 	    report_summary = "Between #{data[:start_day]} and #{data[:end_day]} there #{if data[:this_week]>1 then "were" else "was" end} #{data[:this_week]} #{if data[:this_week]>1 then "emails" else "email" end} tagged with '#{data[:tag]}' (#{data[:last_week]} the week before)"
-	    message["global_merge_vars"]  = [{"name"=>"REPORT_SUMMARY", "content"=>report_summary},{"name"=>"REPORT_EMAILS", "content"=>"#{get_conversations(report)[:emails]}"}]
+	    message["global_merge_vars"]  = [{"name"=>"REPORT_SUMMARY", "content"=>report_summary},{"name"=>"REPORT_EMAILS", "content"=>body}]
 
 	    mandrill.messages.send_template template_name, template_content, message, true
 	end
