@@ -1,49 +1,26 @@
-<div class="container">
-    <div>
-    	<H1>Summary</H1>
-    	<p>Between <%= @email_message[:start_day] %> and <%= @email_message[:end_day] %> there <%= if @email_message[:this_week]>1 then "were" else "was" end %> <%= @email_message[:this_week] %> <%= if @email_message[:this_week]>1 then "emails" else "email" end %> tagged with "<%= @email_message[:tag] %>" (<%= @email_message[:last_week] %> the week before)</p>
-	</div>
-</div>
 <div class = "container">
-	<H1>Emails</H1>
-	<div class = "row">
-		<div class = "col-md-3"><b>Date sent</b></div>
-		<div class = "col-md-3"><b>Subject</b></div>
-		<div class = "col-md-6"><b>Email</b></div>
+	<H1>Emailed report</H1>
+	<div>
+		<p>Between <%= @email_message[:start_day] %> and <%= @email_message[:end_day] %> there <%= if @email_message[:this_week]>1 then "were" else "was" end %> <%= @email_message[:this_week] %> <%= if @email_message[:this_week]>1 then "emails" else "email" end %> tagged with "<%= @email_message[:tag] %>" (<%= @email_message[:last_week] %> the week before)</p>
 	</div>
-	<div class = "row">
+	<div>
 		<% @email_message[:emails].each do |email| %>
-			<div class = "col-md-3">
-				<%= email[:email_date].html_safe %>
+			<div>
+				Sent: <%= email[:email_date].html_safe %>
 			</div>
-			<div class = "col-md-3">
-				<div><%= email[:email_subject].html_safe %></div>
+			<div>
+				Subject: <%= email[:email_subject].html_safe %>
 			</div>
-			<div class = "col-md-6">
-				<div><%= email[:email_body].html_safe %></div>
+			<div>
+				<%= email[:email_body].html_safe %>
 			</div>
 		<% end %>
 	</div>
 </div>
 <div class = "container">
-	<H1>Emailed report</H1>
-	<p>Between <%= @email_message[:start_day] %> and <%= @email_message[:end_day] %> there <%= if @email_message[:this_week]>1 then "were" else "was" end %> <%= @email_message[:this_week] %> <%= if @email_message[:this_week]>1 then "emails" else "email" end %> tagged with "<%= @email_message[:tag] %>" (<%= @email_message[:last_week] %> the week before)</p>
-	<% @email_message[:emails].each do |email| %>
-		<div>
-			Sent: <%= email[:email_date].html_safe %>
-		</div>
-		<div>
-			Subject: <%= email[:email_subject].html_safe %>
-		</div>
-		<div>
-			<%= email[:email_body].html_safe %>
-		</div>
-	<% end %>
-</div>
-<div class = "container">
-	<div>
-		<%= link_to "Send test email to #{current_user.email}", "#{send_test_path}/#{@report_id}", remote: true %>
+	<div class="btn-group">
+		<%= link_to "Send test email to #{current_user.email}", "#{send_test_path}/#{@report_id}", remote: true, :class => "btn btn-small btn-success" %>
 		</br></br>
-		<%= link_to('Back to overview', '/reports')  %>
+		<%= link_to('Back to overview', '/reports', :class => "btn btn-small btn-success") %>
 	</div>
 </div>
