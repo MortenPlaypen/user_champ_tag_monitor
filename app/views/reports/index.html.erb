@@ -71,7 +71,7 @@
               <b>Status</b>
             </div>
         </div>
-        <% @reports.each do |report| %>
+        <% @reports.order(:id).each do |report| %>
         <div class="row">
             <div class="col-md-2">
               <%= report.tag %>
@@ -83,8 +83,10 @@
               <%= report.recipient_email %>
             </div>
             <div class="col-md-2">
-              <%= if report.active == nil then "Not active" else "Active" end %>
-              <%= report.active %>
+              <%= if report.active == nil or report.active == false then "Not active" else "Active" end %>
+            </div>
+            <div class="col-md-2">
+              <%= link_to "Change status", "#{status_report_path}/#{report.id}", class: 'btn btn-default'%>
             </div>
             <div class="col-md-2">
               <%= link_to "See preview of report", "#{show_email_path}/#{report.id}", class: 'btn btn-default'%>

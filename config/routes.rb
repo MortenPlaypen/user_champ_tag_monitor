@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   #get 'reports/index'
   get '/send_test/:report_id' => 'reports#send_test', :as => :report_id
   get '/send_test' => 'reports#send_test'
+
+  get '/status_report/:status_id' => 'reports#status', :as => :status_id
+  get '/status_report' => 'reports#status'
   
   get '/show_email/:id' => 'emails#index', :as => :id
   get '/show_email' => 'emails#index'

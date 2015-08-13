@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
 
   def index
   	@report=Report.new
-  	@reports = Report.all
+  	@reports = Report.all #(:order => 'created_at DESC')
   end
 
   def create
@@ -30,6 +30,20 @@ class ReportsController < ApplicationController
     id = params[:delete_id]
     report=Report.find(id)
     report.destroy
+    redirect_to :root
+  end
+
+  def status
+    id = params[:status_id]
+    report=Report.find(id)
+    #binding.pry
+    if report.active == nil or report.active == false then
+      report.active = true 
+      #binding.pry
+    else
+      report.active = false
+    end
+    report.save
     redirect_to :root
   end
 
