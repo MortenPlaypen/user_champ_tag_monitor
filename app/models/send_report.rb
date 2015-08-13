@@ -4,6 +4,14 @@ require 'httparty'
 class SendReport
 	include HTTParty
 
+	def self.create_email(report_id)
+		# method to be run once per week to create and store a new email for each report
+	end
+
+	def self.send_emails(report_id)
+		# method to send all emails after they are created
+	end
+
 	def self.email(report_id,test)
 		mandrill = Mandrill::API.new ENV['MANDRILL_APIKEY']
     	report=Report.find(report_id)

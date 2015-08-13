@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
 
   def index
   	@report=Report.new
-  	@reports = Report.all #(:order => 'created_at DESC')
+  	@reports = Report.all
   end
 
   def create
