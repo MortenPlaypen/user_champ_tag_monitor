@@ -24,15 +24,14 @@
           </div>
       </div>
       <div class="form-group">
-          <%= f.label :recipient_email, "Who (other than you) should receive the report?", class: "control-label col-md-4" %>
+          <%= f.label :recipient_email, "Who should receive the report?", class: "control-label col-md-4" %>
           <div class="col-md-4">
             <%= f.text_field(:recipient_email) %>
           </div>
       </div>
       <div>
         <div class="col-md-4">
-          <p>Reports are created and emailed at midnight on Sunday covering the previous seven days.</p>
-          <p>(NOT FUNCTIONAL YET - NO EMAILS WILL BE SENT AUTOMATICALLY)</p>
+          <p>Active reports are compiled and emailed at midnight on Sunday covering the previous seven days.</p>
         </div>
       </div>
       <div class="form-group">
