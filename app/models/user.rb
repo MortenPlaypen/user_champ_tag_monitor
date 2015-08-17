@@ -4,11 +4,26 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  validate :valid_token, on: :create
+ 
+  def valid_token
+  	auth = {:password => "X", :username => self.helpscout_token}
+	response = HTTParty.get(URI.encode("https://api.helpscout.net/v1/mailboxes.json"), :basic_auth => auth)
+    if response["code"]="401"
+      errors.add(:helpscout_token, "does not look valid")
+    end
+  end
+
+
   has_many :reports
 
 	def get_mailboxes
 		auth = {:password => "X", :username => self.helpscout_token}
 		response = HTTParty.get(URI.encode("https://api.helpscout.net/v1/mailboxes.json"), :basic_auth => auth)
+		
+		auth_fail = {:password => "X", :username => "1234567890"}
+		response_fail = HTTParty.get(URI.encode("https://api.helpscout.net/v1/mailboxes.json"), :basic_auth => auth_fail)
+
 		ret_array=[]
 		response["items"].each do |item|
 			item_array = []
