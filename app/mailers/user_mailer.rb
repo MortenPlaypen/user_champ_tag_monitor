@@ -1,3 +1,5 @@
+require 'mandrill'
+
 class UserMailer
 	def new_user
 		mandrill = Mandrill::API.new ENV['MANDRILL_APIKEY']
@@ -7,7 +9,7 @@ class UserMailer
 	    message["to"] =  
 	    	[{
 	    	"type"=>"to",
-            "email"=>morten@playpenlabs.com
+            "email"=>"morten@playpenlabs.com"
             }]
 	    
 	    message["from_email"] = "morten@playpenlabs.com"
