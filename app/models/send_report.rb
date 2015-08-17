@@ -4,14 +4,6 @@ require 'httparty'
 class SendReport
 	include HTTParty
 
-	def self.create_email(report_id)
-		# method to be run once per week to create and store a new email for each report
-	end
-
-	def self.send_emails(report_id)
-		# method to send all emails after they are created
-	end
-
 	def self.email(report_id,test)
 		mandrill = Mandrill::API.new ENV['MANDRILL_APIKEY']
     	report=Report.find(report_id)
@@ -19,7 +11,7 @@ class SendReport
 
     	message = {}
 	    
-        #message["html"] = data
+        message["html"] = data
         if test == true then
         	recipient_email = report.user.email
         	message["subject"] = "PREVIEW: Your weekly report"
@@ -27,26 +19,14 @@ class SendReport
         	recipient_email = report.recipient_email
         	message["subject"] = "Your weekly report"
         end
-	    
-        # Creating test code to get format right for multiple recipients
-        # This array is to be created from recipient_email field on report
-        recipient_emails = ["email1","email2"]
 
-        # Create message array from those emails
-        test_message = {}
-        test_message["to"] = []
-        recipient_emails["items"].each do |item|
+        # Create recipient array using recipient emails
+        recipient_emails = recipient_email.split(/,/)
+        message["to"] = []
+        recipient_emails.each do |item|
         	to_hash = {"type"=>"to","email"=>item}
-        	test_message.push(to_hash)
+        	message["to"].push(to_hash)
         end
-
-	    message["to"] =  
-	    	[{
-	    	"type"=>"to",
-            "email"=>recipient_email
-            }]
-	    
-        binding.pry
 
 	    message["from_email"] = "morten@playpenlabs.com"
 	    body = ""
