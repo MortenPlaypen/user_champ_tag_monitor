@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
 
   def index
   	@report=Report.new
-  	@reports = Report.all
+  	@reports = current_user.reports
   end
 
   def create
