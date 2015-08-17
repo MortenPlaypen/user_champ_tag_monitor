@@ -1,5 +1,6 @@
 <div class = "container">
 	<H1>Emailed report</H1>
+	<div class = "container">
 	<div>
 		<p>Between <%= @email_message[:start_day] %> and <%= @email_message[:end_day] %> there <%= if @email_message[:this_week]>1 then "were" else "was" end %> <%= @email_message[:this_week] %> <%= if @email_message[:this_week]>1 then "emails" else "email" end %> tagged with "<%= @email_message[:tag] %>" (<%= @email_message[:last_week] %> the week before)</p>
 	</div>

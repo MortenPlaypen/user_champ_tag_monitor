@@ -27,10 +27,15 @@ class SendReport
         	recipient_email = report.recipient_email
         	message["subject"] = "Your weekly report"
         end
-	    message["to"] =  [{
+	    
+
+	    
+	    message["to"] =  
+	    	[{
 	    	"type"=>"to",
             "email"=>recipient_email
             }]
+	    
 	    message["from_email"] = "morten@playpenlabs.com"
 	    body = ""
 	    data[:emails].each do |email|

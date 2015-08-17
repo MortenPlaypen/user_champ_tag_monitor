@@ -3,6 +3,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
     super
+    #UserMailer.new_user
   end
 
   def new
