@@ -28,14 +28,26 @@ class SendReport
         	message["subject"] = "Your weekly report"
         end
 	    
+        # Creating test code to get format right for multiple recipients
+        # This array is to be created from recipient_email field on report
+        recipient_emails = ["email1","email2"]
 
-	    
+        # Create message array from those emails
+        test_message = {}
+        test_message["to"] = []
+        recipient_emails["items"].each do |item|
+        	to_hash = {"type"=>"to","email"=>item}
+        	test_message.push(to_hash)
+        end
+
 	    message["to"] =  
 	    	[{
 	    	"type"=>"to",
             "email"=>recipient_email
             }]
 	    
+        binding.pry
+
 	    message["from_email"] = "morten@playpenlabs.com"
 	    body = ""
 	    data[:emails].each do |email|

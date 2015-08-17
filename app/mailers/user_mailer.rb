@@ -3,6 +3,7 @@ class UserMailer
 		mandrill = Mandrill::API.new ENV['MANDRILL_APIKEY']
 		recipient_email = report.user.email
 		message["subject"] = "New User Signed Up For TagMonitor"
+	    message = {}
 	    message["to"] =  
 	    	[{
 	    	"type"=>"to",
