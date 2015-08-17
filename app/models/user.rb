@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   	auth = {:password => "X", :username => self.helpscout_token}
 	response = HTTParty.get(URI.encode("https://api.helpscout.net/v1/mailboxes.json"), :basic_auth => auth)
     if response["code"]="401"
-      errors.add(:helpscout_token, "does not look valid")
+      errors.add(:helpscout_token, "is not valid")
     end
   end
 
